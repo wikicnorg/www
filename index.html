@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华夏百科导航 - 探索中国历史文化的门户</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f9f3e9;
+            --text-color: #333;
+            --primary-color: #c91f37;
+            --primary-light: #e84c3d;
+            --secondary-color: #f8e0d5;
+            --card-bg: #fff;
+            --border-color: #e0c4b8;
+            --footer-bg: #8b0000;
+            --footer-text: #f9e0d0;
+            --gold-color: #d4af37;
+        }
+
+        .dark-mode {
+            --bg-color: #2a1a1a;
+            --text-color: #f0e0d0;
+            --primary-color: #a81830;
+            --primary-light: #c0392b;
+            --secondary-color: #3a2a2a;
+            --card-bg: #3a2a2a;
+            --border-color: #5a3a3a;
+            --footer-bg: #600000;
+            --footer-text: #f0d0c0;
+            --gold-color: #c9a937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%23c91f37" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,30 Q50,10 70,30 T90,50 Q70,70 50,90 T10,50 Q30,30 50,10 Z" fill="none" stroke="white" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-bar {
+            margin: 25px auto;
+            max-width: 700px;
+            display: flex;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .search-button {
+            padding: 15px 30px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .search-button:hover {
+            background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .site-link {
+            display: block;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .site-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .site-name {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .site-name i {
+            color: var(--primary-color);
+        }
+
+        .site-link:hover .site-name i {
+            color: white;
+        }
+
+        .site-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            padding-left: 24px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--footer-bg));
+            color: var(--footer-text);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="%23f9e0d0" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+            opacity: 0.2;
+        }
+
+        .copyright {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .category-filter {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 12px;
+            }
+
+            .search-input {
+                border-radius: 12px 12px 0 0;
+            }
+
+            .search-button {
+                border-radius: 0 0 12px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-landmark"></i> 华夏百科导航</h1>
+            <p class="subtitle">探索中国历史、文化、地理与特产的百科全书</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="搜索中国历史、文化、地理等内容...">
+            <button class="search-button"><i class="fas fa-search"></i> 搜索</button>
+        </div>
+
+        <div class="controls">
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all"><i class="fas fa-globe-asia"></i> 全部</button>
+                <button class="category-btn" data-category="history"><i class="fas fa-history"></i> 历史</button>
+                <button class="category-btn" data-category="culture"><i class="fas fa-yin-yang"></i> 文化</button>
+                <button class="category-btn" data-category="geography"><i class="fas fa-mountain"></i> 地理</button>
+                <button class="category-btn" data-category="specialty"><i class="fas fa-gifts"></i> 特产</button>
+                <button class="category-btn" data-category="art"><i class="fas fa-paint-brush"></i> 艺术</button>
+                <button class="category-btn" data-category="literature"><i class="fas fa-book-open"></i> 文学</button>
+                <button class="category-btn" data-category="food"><i class="fas fa-utensils"></i> 美食</button>
+                <button class="category-btn" data-category="travel"><i class="fas fa-map-marked-alt"></i> 旅游</button>
+                <button class="category-btn" data-category="ethnic"><i class="fas fa-users"></i> 民族</button>
+                <button class="category-btn" data-category="heritage"><i class="fas fa-university"></i> 遗产</button>
+                <button class="category-btn" data-category="architecture"><i class="fas fa-archway"></i> 建筑</button>
+                <button class="category-btn" data-category="festival"><i class="fas fa-calendar-alt"></i> 节庆</button>
+                <button class="category-btn" data-category="philosophy"><i class="fas fa-brain"></i> 哲学</button>
+                <button class="category-btn" data-category="language"><i class="fas fa-language"></i> 语言文字</button>
+                <button class="category-btn" data-category="science"><i class="fas fa-flask"></i> 古代科技</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> 深色模式</button>
+        </div>
+
+        <div class="grid">
+            <!-- 历史类 -->
+            <div class="card" data-category="history">
+                <div class="card-header"><i class="fas fa-history"></i> 历史</div>
+                <div class="card-body">
+                    <a href="https://www.dpm.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 故宫博物院</div>
+                        <div class="site-desc">中国最大的古代文化艺术博物馆，展示明清宫廷历史与文化</div>
+                    </a>
+                    <a href="http://www.ncha.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-monument"></i> 国家文物局</div>
+                        <div class="site-desc">中国文物保护和管理的官方网站，提供文物政策法规和考古发现</div>
+                    </a>
+                    <a href="https://www.chinakongzi.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 中国孔子网</div>
+                        <div class="site-desc">全面介绍孔子思想和儒家文化的官方网站</div>
+                    </a>
+                    <a href="http://www.chnmuseum.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-museum"></i> 中国国家博物馆</div>
+                        <div class="site-desc">展示中华五千年文明历史的综合性博物馆</div>
+                    </a>
+                    <a href="https://www.sxhb.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-archway"></i> 陕西历史博物馆</div>
+                        <div class="site-desc">展示陕西及周边地区丰富历史文化的省级博物馆</div>
+                    </a>
+                    <a href="http://www.bmy.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-chess-rook"></i> 秦始皇帝陵博物院</div>
+                        <div class="site-desc">秦始皇兵马俑的官方网站</div>
+                    </a>
+                    <a href="http://www.zgshm.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 中国史书网</div>
+                        <div class="site-desc">收录中国历代史书典籍的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaarchaeology.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-digging"></i> 中国考古网</div>
+                        <div class="site-desc">中国考古学会主办的学术网站</div>
+                    </a>
+                    <a href="http://www.historychina.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 中华历史网</div>
+                        <div class="site-desc">全面介绍中国历史的专业网站</div>
+                    </a>
+                    <a href="http://www.zgshjng.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-torii-gate"></i> 中国世界遗产网</div>
+                        <div class="site-desc">介绍中国世界文化遗产的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 文化类 -->
+            <div class="card" data-category="culture">
+                <div class="card-header"><i class="fas fa-yin-yang"></i> 文化</div>
+                <div class="card-body">
+                    <a href="https://www.chinaculture.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-chess"></i> 中国文化网</div>
+                        <div class="site-desc">中国文化部主办的对外文化交流平台</div>
+                    </a>
+                    <a href="http://www.chinesefolklore.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mask"></i> 中国民俗学网</div>
+                        <div class="site-desc">研究中国各民族民俗文化的学术网站</div>
+                    </a>
+                    <a href="https://www.zhongguojie.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-calendar-alt"></i> 中国节庆网</div>
+                        <div class="site-desc">介绍中国传统节日和现代节庆活动的专业网站</div>
+                    </a>
+                    <a href="http://www.chinakongzi.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 中国孔子网</div>
+                        <div class="site-desc">弘扬儒家文化，传播国学知识的官方网站</div>
+                    </a>
+                    <a href="https://www.chinadance.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-music"></i> 中国舞蹈网</div>
+                        <div class="site-desc">展示中国各民族舞蹈艺术的综合平台</div>
+                    </a>
+                    <a href="http://www.chinaculturecenter.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-globe-asia"></i> 中外文化交流中心</div>
+                        <div class="site-desc">促进中外文化交流的官方平台</div>
+                    </a>
+                    <a href="http://www.chinaopera.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-theater-masks"></i> 中国戏曲网</div>
+                        <div class="site-desc">介绍中国各地戏曲艺术的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaculture.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-yin-yang"></i> 中华文化网</div>
+                        <div class="site-desc">全面介绍中华文化的综合性网站</div>
+                    </a>
+                    <a href="http://www.chinacultureonline.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-globe"></i> 中国文化在线</div>
+                        <div class="site-desc">中国文化数字传播平台</div>
+                    </a>
+                    <a href="http://www.chineseculture.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-monument"></i> 中华文化信息网</div>
+                        <div class="site-desc">中国传统文化信息资源平台</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 地理类 -->
+            <div class="card" data-category="geography">
+                <div class="card-header"><i class="fas fa-mountain"></i> 地理</div>
+                <div class="card-body">
+                    <a href="http://www.dlmap.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-map"></i> 中国数字地图网</div>
+                        <div class="site-desc">提供中国各省市高清电子地图和地理信息系统</div>
+                    </a>
+                    <a href="http://www.cgs.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 中国地质调查局</div>
+                        <div class="site-desc">中国地质矿产调查研究的官方网站</div>
+                    </a>
+                    <a href="http://www.weather.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-cloud-sun"></i> 中国天气网</div>
+                        <div class="site-desc">提供全国天气预报和气候信息的权威网站</div>
+                    </a>
+                    <a href="http://www.nmdis.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-water"></i> 国家海洋信息中心</div>
+                        <div class="site-desc">中国海洋地理和资源信息的专业网站</div>
+                    </a>
+                    <a href="http://www.cma.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-wind"></i> 中国气象局</div>
+                        <div class="site-desc">中国气象监测和气候研究的官方网站</div>
+                    </a>
+                    <a href="http://www.nrsis.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-satellite"></i> 国家遥感中心</div>
+                        <div class="site-desc">中国遥感地理信息系统的专业网站</div>
+                    </a>
+                    <a href="http://www.river.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-water"></i> 中国河流网</div>
+                        <div class="site-desc">介绍中国主要河流水系的地理网站</div>
+                    </a>
+                    <a href="http://www.chinamountain.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 中国山脉网</div>
+                        <div class="site-desc">介绍中国主要山脉系统的专业网站</div>
+                    </a>
+                    <a href="http://www.chinalake.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-water"></i> 中国湖泊网</div>
+                        <div class="site-desc">介绍中国主要湖泊的专业网站</div>
+                    </a>
+                    <a href="http://www.chinageopark.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 中国地质公园网</div>
+                        <div class="site-desc">介绍中国地质公园的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 特产类 -->
+            <div class="card" data-category="specialty">
+                <div class="card-header"><i class="fas fa-gifts"></i> 特产</div>
+                <div class="card-body">
+                    <a href="http://www.chinapgi.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-certificate"></i> 中国地理标志产品网</div>
+                        <div class="site-desc">介绍中国各地地理标志保护产品的官方网站</div>
+                    </a>
+                    <a href="https://www.chinatea.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-leaf"></i> 中国茶叶网</div>
+                        <div class="site-desc">介绍中国各地名茶和茶文化的专业网站</div>
+                    </a>
+                    <a href="http://www.china-silk.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scarf"></i> 中国丝绸网</div>
+                        <div class="site-desc">介绍中国丝绸产品和丝绸文化的官方网站</div>
+                    </a>
+                    <a href="http://www.chinapottery.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-vase"></i> 中国陶瓷网</div>
+                        <div class="site-desc">展示中国各地陶瓷艺术和工艺的专业网站</div>
+                    </a>
+                    <a href="http://www.china-herbs.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-leaf"></i> 中国中药材网</div>
+                        <div class="site-desc">介绍中国各地特色中药材的专业网站</div>
+                    </a>
+                    <a href="http://www.chinalacquer.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-paint-roller"></i> 中国漆器网</div>
+                        <div class="site-desc">介绍中国传统漆器工艺的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaembroidery.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-thread"></i> 中国刺绣网</div>
+                        <div class="site-desc">展示中国各地刺绣艺术的官方网站</div>
+                    </a>
+                    <a href="http://www.chinajade.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-gem"></i> 中国玉石网</div>
+                        <div class="site-desc">介绍中国玉石文化和产品的专业网站</div>
+                    </a>
+                    <a href="http://www.chinapapercut.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-cut"></i> 中国剪纸网</div>
+                        <div class="site-desc">展示中国传统剪纸艺术的网站</div>
+                    </a>
+                    <a href="http://www.chinaknot.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-knot"></i> 中国结艺网</div>
+                        <div class="site-desc">介绍中国传统结艺的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 艺术类 -->
+            <div class="card" data-category="art">
+                <div class="card-header"><i class="fas fa-paint-brush"></i> 艺术</div>
+                <div class="card-body">
+                    <a href="http://www.cnarts.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-palette"></i> 中国艺术网</div>
+                        <div class="site-desc">综合展示中国各类艺术形式的门户网站</div>
+                    </a>
+                    <a href="http://www.cflac.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-theater-masks"></i> 中国文联</div>
+                        <div class="site-desc">中国文学艺术界联合会的官方网站</div>
+                    </a>
+                    <a href="http://www.caa.edu.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-university"></i> 中央美术学院</div>
+                        <div class="site-desc">中国最高美术学府的官方网站</div>
+                    </a>
+                    <a href="http://www.chinaopera.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mask"></i> 中国戏曲网</div>
+                        <div class="site-desc">介绍中国各地戏曲艺术的专业网站</div>
+                    </a>
+                    <a href="http://www.chinacalligraphy.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-pen-fancy"></i> 中国书法网</div>
+                        <div class="site-desc">展示中国书法艺术和书法家的专业平台</div>
+                    </a>
+                    <a href="http://www.chinapainting.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-paint-brush"></i> 中国国画网</div>
+                        <div class="site-desc">展示中国传统绘画艺术的官方网站</div>
+                    </a>
+                    <a href="http://www.chinaseal.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-stamp"></i> 中国篆刻网</div>
+                        <div class="site-desc">介绍中国篆刻艺术的专业网站</div>
+                    </a>
+                    <a href="http://www.chinamusic.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-music"></i> 中国民族音乐网</div>
+                        <div class="site-desc">介绍中国传统民族音乐的专业网站</div>
+                    </a>
+                    <a href="http://www.chinafolkart.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mask"></i> 中国民间艺术网</div>
+                        <div class="site-desc">展示中国民间艺术的综合性网站</div>
+                    </a>
+                    <a href="http://www.chinashuhua.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-paint-brush"></i> 中国书画网</div>
+                        <div class="site-desc">展示中国传统书画艺术的专业平台</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 文学类 -->
+            <div class="card" data-category="literature">
+                <div class="card-header"><i class="fas fa-book-open"></i> 文学</div>
+                <div class="card-body">
+                    <a href="http://www.chinawriter.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-pen-nib"></i> 中国作家网</div>
+                        <div class="site-desc">中国作家协会主办的文学门户网站</div>
+                    </a>
+                    <a href="http://www.guoxue.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 国学网</div>
+                        <div class="site-desc">研究中国传统文化和古典文学的专业网站</div>
+                    </a>
+                    <a href="http://www.poetry-cn.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-feather-alt"></i> 中国诗歌网</div>
+                        <div class="site-desc">展示中国古今诗歌的专业平台</div>
+                    </a>
+                    <a href="http://www.chinapoesy.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-feather"></i> 中华诗词网</div>
+                        <div class="site-desc">中国古典诗词研究和欣赏的专业网站</div>
+                    </a>
+                    <a href="http://www.chineseci.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中国词网</div>
+                        <div class="site-desc">专门研究中国古典词牌和词作的专业网站</div>
+                    </a>
+                    <a href="http://www.chinesefolktale.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book-reader"></i> 中国民间故事网</div>
+                        <div class="site-desc">收录中国各地民间故事的专业网站</div>
+                    </a>
+                    <a href="http://www.chinanovel.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中国小说网</div>
+                        <div class="site-desc">展示中国古典和现代小说的专业平台</div>
+                    </a>
+                    <a href="http://www.chinaliterature.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中国文学网</div>
+                        <div class="site-desc">研究中国文学发展的学术网站</div>
+                    </a>
+                    <a href="http://www.chinaclassic.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 中国古典文学网</div>
+                        <div class="site-desc">收录中国古典文学作品的网站</div>
+                    </a>
+                    <a href="http://www.chinesepoem.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-feather"></i> 中华诗苑</div>
+                        <div class="site-desc">中国古典诗歌研究和欣赏的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 美食类 -->
+            <div class="card" data-category="food">
+                <div class="card-header"><i class="fas fa-utensils"></i> 美食</div>
+                <div class="card-body">
+                    <a href="http://www.chinacaipu.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-utensil-spoon"></i> 中国菜谱网</div>
+                        <div class="site-desc">收录中国各地特色菜谱的美食网站</div>
+                    </a>
+                    <a href="http://www.chinacuisine.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-drumstick-bite"></i> 中国烹饪网</div>
+                        <div class="site-desc">介绍中国八大菜系和烹饪技艺的专业网站</div>
+                    </a>
+                    <a href="http://www.china-tea.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mug-hot"></i> 中国茶文化网</div>
+                        <div class="site-desc">介绍中国茶文化和茶艺的专业网站</div>
+                    </a>
+                    <a href="http://www.chinawine.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-wine-glass-alt"></i> 中国酒文化网</div>
+                        <div class="site-desc">介绍中国酒文化和酿酒技艺的专业网站</div>
+                    </a>
+                    <a href="http://www.china-snack.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-cookie"></i> 中国小吃网</div>
+                        <div class="site-desc">介绍中国各地特色小吃的专业网站</div>
+                    </a>
+                    <a href="http://www.chinadimsum.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-dumpling"></i> 中国点心网</div>
+                        <div class="site-desc">介绍中国传统点心制作的专业网站</div>
+                    </a>
+                    <a href="http://www.chinacooking.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mortar-pestle"></i> 中华烹饪网</div>
+                        <div class="site-desc">介绍中国传统烹饪技法的专业网站</div>
+                    </a>
+                    <a href="http://www.chinafoodculture.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-utensils"></i> 中国饮食文化网</div>
+                        <div class="site-desc">介绍中国各地饮食文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinachef.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-chef-hat"></i> 中国厨师网</div>
+                        <div class="site-desc">中国厨师行业的专业网站</div>
+                    </a>
+                    <a href="http://www.chinafood.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-apple-alt"></i> 中国食材网</div>
+                        <div class="site-desc">介绍中国各地特色食材的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 旅游类 -->
+            <div class="card" data-category="travel">
+                <div class="card-header"><i class="fas fa-map-marked-alt"></i> 旅游</div>
+                <div class="card-body">
+                    <a href="http://www.cnta.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-umbrella-beach"></i> 中国旅游网</div>
+                        <div class="site-desc">中国文化和旅游部的官方网站</div>
+                    </a>
+                    <a href="http://www.51766.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-map-signs"></i> 中国旅游资讯网</div>
+                        <div class="site-desc">提供中国各地旅游信息的综合平台</div>
+                    </a>
+                    <a href="http://www.ctrip.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-plane"></i> 携程旅行网</div>
+                        <div class="site-desc">中国领先的在线旅游服务平台</div>
+                    </a>
+                    <a href="http://www.mafengwo.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-hiking"></i> 马蜂窝旅游网</div>
+                        <div class="site-desc">提供中国旅游攻略和自由行信息的平台</div>
+                    </a>
+                    <a href="http://www.youxiake.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-camera"></i> 游侠客旅游网</div>
+                        <div class="site-desc">专注于中国深度旅游体验的网站</div>
+                    </a>
+                    <a href="http://www.chinaholiday.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-hotel"></i> 中国假日网</div>
+                        <div class="site-desc">提供中国旅游度假信息的专业网站</div>
+                    </a>
+                    <a href="http://www.chinahighlights.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 中国亮点旅游网</div>
+                        <div class="site-desc">介绍中国旅游景点的专业英文网站</div>
+                    </a>
+                    <a href="http://www.chinatravel.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-passport"></i> 中国旅游在线</div>
+                        <div class="site-desc">提供中国旅游信息的综合网站</div>
+                    </a>
+                    <a href="http://www.chinadiscovery.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-binoculars"></i> 中国探索旅游网</div>
+                        <div class="site-desc">介绍中国深度旅游体验的专业网站</div>
+                    </a>
+                    <a href="http://www.chinabackpacker.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-backpack"></i> 中国背包客网</div>
+                        <div class="site-desc">中国自助旅游者的交流平台</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 历史遗址类 -->
+            <div class="card" data-category="history heritage">
+                <div class="card-header"><i class="fas fa-archway"></i> 历史遗址</div>
+                <div class="card-body">
+                    <a href="http://www.bmy.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-chess-rook"></i> 秦始皇帝陵博物院</div>
+                        <div class="site-desc">秦始皇兵马俑的官方网站</div>
+                    </a>
+                    <a href="http://www.dunhuangcaves.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-cave"></i> 敦煌莫高窟</div>
+                        <div class="site-desc">世界文化遗产敦煌莫高窟的官方网站</div>
+                    </a>
+                    <a href="http://www.mount-tai.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 泰山风景名胜区</div>
+                        <div class="site-desc">世界文化与自然双重遗产泰山的官方网站</div>
+                    </a>
+                    <a href="http://www.mountwuyi.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-tree"></i> 武夷山风景名胜区</div>
+                        <div class="site-desc">世界文化与自然双重遗产武夷山的官方网站</div>
+                    </a>
+                    <a href="http://www.sxwh.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 陕西文化遗产网</div>
+                        <div class="site-desc">介绍陕西丰富历史文化遗产的专业网站</div>
+                    </a>
+                    <a href="http://www.suzhougarden.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-spa"></i> 苏州园林网</div>
+                        <div class="site-desc">世界文化遗产苏州园林的官方网站</div>
+                    </a>
+                    <a href="http://www.thegreatwall.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-wall"></i> 长城网</div>
+                        <div class="site-desc">世界文化遗产中国长城的官方网站</div>
+                    </a>
+                    <a href="http://www.mingxiaoling.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-tombstone"></i> 明孝陵官网</div>
+                        <div class="site-desc">世界文化遗产明孝陵的官方网站</div>
+                    </a>
+                    <a href="http://www.potalapalace.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 布达拉宫官网</div>
+                        <div class="site-desc">世界文化遗产布达拉宫的官方网站</div>
+                    </a>
+                    <a href="http://www.summerpalace-china.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 颐和园官网</div>
+                        <div class="site-desc">世界文化遗产颐和园的官方网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 少数民族文化 -->
+            <div class="card" data-category="culture ethnic">
+                <div class="card-header"><i class="fas fa-users"></i> 少数民族文化</div>
+                <div class="card-body">
+                    <a href="http://www.seac.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-flag"></i> 国家民委</div>
+                        <div class="site-desc">中国国家民族事务委员会的官方网站</div>
+                    </a>
+                    <a href="http://www.mzb.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-newspaper"></i> 中国民族报</div>
+                        <div class="site-desc">报道中国各民族新闻和文化的专业媒体</div>
+                    </a>
+                    <a href="http://www.56china.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-globe-asia"></i> 中华56民族文化网</div>
+                        <div class="site-desc">介绍中国56个民族文化的综合平台</div>
+                    </a>
+                    <a href="http://www.tibet.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-pray"></i> 中国西藏网</div>
+                        <div class="site-desc">介绍西藏历史文化和现代发展的官方网站</div>
+                    </a>
+                    <a href="http://www.xj71.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-music"></i> 新疆民族文化网</div>
+                        <div class="site-desc">介绍新疆各民族文化的专业网站</div>
+                    </a>
+                    <a href="http://www.gxmzb.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-drum"></i> 广西民族报</div>
+                        <div class="site-desc">介绍广西少数民族文化的专业网站</div>
+                    </a>
+                    <a href="http://www.ynethnic.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-torii-gate"></i> 云南民族网</div>
+                        <div class="site-desc">介绍云南少数民族文化的官方网站</div>
+                    </a>
+                    <a href="http://www.gzmzb.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-vest"></i> 贵州民族报</div>
+                        <div class="site-desc">介绍贵州少数民族文化的专业网站</div>
+                    </a>
+                    <a href="http://www.qhmzw.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 青海民族网</div>
+                        <div class="site-desc">介绍青海少数民族文化的官方网站</div>
+                    </a>
+                    <a href="http://www.nmgmzw.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-horse"></i> 内蒙古民族网</div>
+                        <div class="site-desc">介绍内蒙古少数民族文化的官方网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 非物质文化遗产 -->
+            <div class="card" data-category="culture heritage">
+                <div class="card-header"><i class="fas fa-university"></i> 非物质文化遗产</div>
+                <div class="card-body">
+                    <a href="http://www.ihchina.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 中国非物质文化遗产网</div>
+                        <div class="site-desc">中国非物质文化遗产保护的官方网站</div>
+                    </a>
+                    <a href="http://www.zgfeiyi.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mask"></i> 中国非遗网</div>
+                        <div class="site-desc">介绍中国非物质文化遗产的专业网站</div>
+                    </a>
+                    <a href="http://www.chinesefolklore.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中国民俗学网</div>
+                        <div class="site-desc">研究中国民间文化和非物质文化遗产的学术网站</div>
+                    </a>
+                    <a href="http://www.chinaculture.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-yin-yang"></i> 中国文化网</div>
+                        <div class="site-desc">包含丰富非物质文化遗产信息的文化网站</div>
+                    </a>
+                    <a href="http://www.chinaich.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-hands-helping"></i> 中国非遗传承网</div>
+                        <div class="site-desc">关注非物质文化遗产传承的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaart.org.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-paint-brush"></i> 中国民间艺术网</div>
+                        <div class="site-desc">介绍中国民间艺术和非遗项目的专业网站</div>
+                    </a>
+                    <a href="http://www.chinacraft.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-hammer"></i> 中国工艺美术网</div>
+                        <div class="site-desc">展示中国传统工艺美术和非遗技艺的网站</div>
+                    </a>
+                    <a href="http://www.chinafolklore.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mask"></i> 中华民俗文化网</div>
+                        <div class="site-desc">介绍中国民俗和非遗文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaich.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 中国非遗保护网</div>
+                        <div class="site-desc">中国非物质文化遗产保护的专业网站</div>
+                    </a>
+                    <a href="http://www.chinafolkculture.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中华民间文化网</div>
+                        <div class="site-desc">介绍中国民间文化和非遗项目的综合网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 传统建筑 -->
+            <div class="card" data-category="architecture heritage">
+                <div class="card-header"><i class="fas fa-archway"></i> 传统建筑</div>
+                <div class="card-body">
+                    <a href="http://www.china-arch.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-building"></i> 中国建筑网</div>
+                        <div class="site-desc">介绍中国传统建筑和现代建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.chinagarden.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-spa"></i> 中国园林网</div>
+                        <div class="site-desc">介绍中国古典园林建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaguoxue.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 中国古建网</div>
+                        <div class="site-desc">研究中国古代建筑的专业学术网站</div>
+                    </a>
+                    <a href="http://www.chinahutong.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-home"></i> 中国胡同网</div>
+                        <div class="site-desc">介绍北京胡同建筑文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinapagoda.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-torii-gate"></i> 中国古塔网</div>
+                        <div class="site-desc">研究中国古塔建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.chinabridge.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-bridge"></i> 中国古桥网</div>
+                        <div class="site-desc">介绍中国古桥建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.china-wall.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-wall"></i> 中国城墙网</div>
+                        <div class="site-desc">研究中国古城墙建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.china-vernacular.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-home"></i> 中国民居网</div>
+                        <div class="site-desc">介绍中国各地传统民居的专业网站</div>
+                    </a>
+                    <a href="http://www.china-palace.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-landmark"></i> 中国宫殿网</div>
+                        <div class="site-desc">研究中国宫殿建筑的专业网站</div>
+                    </a>
+                    <a href="http://www.china-temple.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 中国寺庙网</div>
+                        <div class="site-desc">介绍中国寺庙建筑的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 传统节庆 -->
+            <div class="card" data-category="culture festival">
+                <div class="card-header"><i class="fas fa-calendar-alt"></i> 传统节庆</div>
+                <div class="card-body">
+                    <a href="https://www.chunjie.net.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-fire"></i> 中国春节网</div>
+                        <div class="site-desc">介绍中国传统春节文化的专业网站</div>
+                    </a>
+                    <a href="http://www.dragonboat.net.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-water"></i> 中国端午节网</div>
+                        <div class="site-desc">介绍端午节文化和习俗的专业网站</div>
+                    </a>
+                    <a href="http://www.mid-autumn.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-moon"></i> 中国中秋节网</div>
+                        <div class="site-desc">介绍中秋节文化和传统的专业网站</div>
+                    </a>
+                    <a href="http://www.qingming.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-leaf"></i> 中国清明节网</div>
+                        <div class="site-desc">介绍清明节文化和习俗的专业网站</div>
+                    </a>
+                    <a href="http://www.lanternfestival.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-lightbulb"></i> 中国元宵节网</div>
+                        <div class="site-desc">介绍元宵节文化和灯会信息的专业网站</div>
+                    </a>
+                    <a href="http://www.double-ninth.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-mountain"></i> 中国重阳节网</div>
+                        <div class="site-desc">介绍重阳节文化和敬老传统的专业网站</div>
+                    </a>
+                    <a href="http://www.chinesefestival.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-calendar-day"></i> 中国传统节日网</div>
+                        <div class="site-desc">综合介绍中国各种传统节日的专业网站</div>
+                    </a>
+                    <a href="http://www.china-festival.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-calendar"></i> 中华节庆网</div>
+                        <div class="site-desc">介绍中国各民族传统节日的综合网站</div>
+                    </a>
+                    <a href="http://www.china-folklore.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-calendar-check"></i> 中国民俗节庆网</div>
+                        <div class="site-desc">介绍中国民俗节庆的专业网站</div>
+                    </a>
+                    <a href="http://www.china-custom.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-calendar-star"></i> 中国传统习俗网</div>
+                        <div class="site-desc">介绍中国传统节日习俗的专业网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 哲学思想 -->
+            <div class="card" data-category="culture philosophy">
+                <div class="card-header"><i class="fas fa-brain"></i> 哲学思想</div>
+                <div class="card-body">
+                    <a href="http://www.confucius.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 孔子研究院</div>
+                        <div class="site-desc">研究孔子思想和儒家文化的专业网站</div>
+                    </a>
+                    <a href="http://www.daoism.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-yin-yang"></i> 中国道教网</div>
+                        <div class="site-desc">介绍道家思想和道教文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinabuddhism.com.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-om"></i> 中国佛教网</div>
+                        <div class="site-desc">介绍佛教思想和中国佛教文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinesephilosophy.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中国哲学网</div>
+                        <div class="site-desc">研究中国哲学思想的专业学术网站</div>
+                    </a>
+                    <a href="http://www.mozi.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-balance-scale"></i> 墨子研究网</div>
+                        <div class="site-desc">研究墨家思想的专业网站</div>
+                    </a>
+                    <a href="http://www.laozi.net/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-dragon"></i> 老子研究网</div>
+                        <div class="site-desc">研究老子思想和《道德经》的专业网站</div>
+                    </a>
+                    <a href="http://www.mencius.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book-open"></i> 孟子研究网</div>
+                        <div class="site-desc">研究孟子思想和儒家文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaconfucianism.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-temple"></i> 中国儒学网</div>
+                        <div class="site-desc">研究儒家思想的专业学术网站</div>
+                    </a>
+                    <a href="http://www.chinataoism.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-yin-yang"></i> 中国道家网</div>
+                        <div class="site-desc">研究道家思想的专业网站</div>
+                    </a>
+                    <a href="http://www.chinaphilosophy.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-brain"></i> 中华哲学网</div>
+                        <div class="site-desc">研究中国哲学思想的综合网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 语言文字 -->
+            <div class="card" data-category="culture language">
+                <div class="card-header"><i class="fas fa-language"></i> 语言文字</div>
+                <div class="card-body">
+                    <a href="http://www.china-language.gov.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-language"></i> 中国语言文字网</div>
+                        <div class="site-desc">国家语言文字工作委员会的官方网站</div>
+                    </a>
+                    <a href="http://www.chinese.cn/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 中文联盟</div>
+                        <div class="site-desc">国际汉语教育综合服务平台</div>
+                    </a>
+                    <a href="http://www.zhongguohanyu.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-language"></i> 中国汉语网</div>
+                        <div class="site-desc">介绍汉语语言文化的专业网站</div>
+                    </a>
+                    <a href="http://www.chineseetymology.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 汉字字源网</div>
+                        <div class="site-desc">研究汉字起源和发展的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-character.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-pen-fancy"></i> 中国汉字网</div>
+                        <div class="site-desc">介绍汉字文化和书法艺术的网站</div>
+                    </a>
+                    <a href="http://www.chinesedialects.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-comments"></i> 中国方言网</div>
+                        <div class="site-desc">研究中国各地方言的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-grammar.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 汉语语法网</div>
+                        <div class="site-desc">研究汉语语法结构的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-linguistics.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-language"></i> 中国语言学网</div>
+                        <div class="site-desc">研究中国语言学的学术网站</div>
+                    </a>
+                    <a href="http://www.chinese-etymology.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-scroll"></i> 汉字源流网</div>
+                        <div class="site-desc">研究汉字演变历史的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-dictionary.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-book"></i> 汉语词典网</div>
+                        <div class="site-desc">在线汉语词典和语言资源网站</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 古代科技 -->
+            <div class="card" data-category="history science">
+                <div class="card-header"><i class="fas fa-flask"></i> 古代科技</div>
+                <div class="card-body">
+                    <a href="http://www.china-ancient-tech.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-cogs"></i> 中国古代科技网</div>
+                        <div class="site-desc">介绍中国古代科技成就的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-astronomy.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-star"></i> 中国古代天文学网</div>
+                        <div class="site-desc">研究中国古代天文学的专业网站</div>
+                    </a>
+                    <a href="http://www.china-medicine-history.com/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-leaf"></i> 中国医学史网</div>
+                        <div class="site-desc">介绍中国传统医学发展的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-mathematics.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-square-root-alt"></i> 中国古代数学网</div>
+                        <div class="site-desc">研究中国古代数学成就的专业网站</div>
+                    </a>
+                    <a href="http://www.china-agriculture-history.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-tractor"></i> 中国农业史网</div>
+                        <div class="site-desc">介绍中国古代农业技术的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-metallurgy.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-hammer"></i> 中国古代冶金网</div>
+                        <div class="site-desc">研究中国古代冶金技术的专业网站</div>
+                    </a>
+                    <a href="http://www.china-navigation-history.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-ship"></i> 中国航海史网</div>
+                        <div class="site-desc">介绍中国古代航海技术的专业网站</div>
+                    </a>
+                    <a href="http://www.china-engineering.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-ruler-combined"></i> 中国古代工程网</div>
+                        <div class="site-desc">研究中国古代工程技术的专业网站</div>
+                    </a>
+                    <a href="http://www.chinese-inventions.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-lightbulb"></i> 中国古代发明网</div>
+                        <div class="site-desc">介绍中国古代四大发明等科技成果的网站</div>
+                    </a>
+                    <a href="http://www.china-science-history.org/" class="site-link" target="_blank">
+                        <div class="site-name"><i class="fas fa-atom"></i> 中国科技史网</div>
+                        <div class="site-desc">全面介绍中国科技发展史的专业网站</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="copyright">© 2023 华夏百科导航 - 探索中国历史文化的门户 | 本网站仅供学习参考使用</p>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> 浅色模式';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> 深色模式';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 检查本地存储中的主题设置
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> 浅色模式';
+        }
+
+        // 分类筛选功能
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按钮的active类
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // 给当前点击的按钮添加active类
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                const cards = document.querySelectorAll('.card');
+                
+                cards.forEach(card => {
+                    if (category === 'all' || card.dataset.category.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 搜索功能
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const cardHeader = card.querySelector('.card-header').textContent.toLowerCase();
+                const siteLinks = card.querySelectorAll('.site-link');
+                let hasMatch = false;
+                
+                // 检查卡片标题是否匹配
+                if (cardHeader.includes(searchTerm)) {
+                    hasMatch = true;
+                }
+                
+                // 检查卡片内的链接是否匹配
+                siteLinks.forEach(link => {
+                    const siteName = link.querySelector('.site-name').textContent.toLowerCase();
+                    const siteDesc = link.querySelector('.site-desc').textContent.toLowerCase();
+                    
+                    if (siteName.includes(searchTerm) || siteDesc.includes(searchTerm)) {
+                        hasMatch = true;
+                        link.style.display = 'block';
+                    } else {
+                        link.style.display = 'none';
+                    }
+                });
+                
+                if (hasMatch) {
+                    card.style.display = 'block';
+                    // 显示所有链接以便重新搜索
+                    card.querySelectorAll('.site-link').forEach(link => {
+                        link.style.display = 'block';
+                    });
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
